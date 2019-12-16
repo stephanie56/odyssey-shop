@@ -124,6 +124,52 @@
           }
         }
       }
-    }},
-  "defaultProject": "odyssey-shop"
+    },
+    "mario-lib": {
+      "projectType": "library",
+      "root": "projects/mario-lib",
+      "sourceRoot": "projects/mario-lib/src",
+      "prefix": "ma",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/mario-lib/tsconfig.lib.json",
+            "project": "projects/mario-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mario-lib/src/test.ts",
+            "tsConfig": "projects/mario-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/mario-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/mario-lib/tsconfig.lib.json",
+              "projects/mario-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "odyssey-shop",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush"
+      }
+    },
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
