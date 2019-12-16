@@ -1,0 +1,29 @@
+@import "../../stylings/color";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  max-width: 70vw;
+  margin: 0 auto;
+}
+
+.product-image-container {
+  width: 500px;
+  height: 500px;
+  background-color: $ma-background-color-light-dark;
+}
+
+.product-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cta-button {
+  width: 445px;
+  height: 48px;
+  background-color: $ma-color-red;
+  color: $ma-color-white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
