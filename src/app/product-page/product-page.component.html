@@ -1,10 +1,16 @@
 <div class="product-image-container"></div>
 <div class="product-info-container">
-  <div class="product-card">
-    <h1>Mushroom Cushion Set</h1>
-    <h2>Cost (Local Coins): 10</h2>
-    <h3>Kingdom: Mushroom</h3>
-    <p>A tablecloth is also included, seriously what else do you need?</p>
+  <div
+    class="product-card"
+    *ngIf="productObs$ | async as product; else loading"
+  >
+    <h1>{{ product.title }}</h1>
+    <h2>Cost (Regional Coins): {{ product.price }}</h2>
+    <h3>Kingdom: {{ product.origin }}</h3>
+    <p>{{ product.description }}</p>
   </div>
+  <ng-template #loading>
+    <p>loading...</p>
+  </ng-template>
   <button class="cta-button">Add to Cart</button>
 </div>
