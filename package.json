@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier:check": "prettier --config .prettierrc.json --check \"src/**/*.{ts,js,scss,html}\"",
+    "test:ci": "ng test -- --watch=false --no-progress --browsers ChromeHeadless",
+    "prettier:check": "prettier --config .prettierrc.json --debug-check \"src/**/*.{ts,js,scss,html}\"",
     "prettier:fix": "prettier --config .prettierrc.json --write \"src/**/*.{ts,js,scss,html}\""
   },
   "private": true,
