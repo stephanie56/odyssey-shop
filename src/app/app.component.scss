@@ -1,0 +1,7 @@
+@import 'src/stylings/breakpoint';
+
+.app-container {
+  @include breakpoint(tv) {
+    max-width: $bp-lg;
+  }
+}
