@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ApiService } from '../shared/services/api.service';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Product } from '../shared/models/Product';
 
 @Component({
   selector: 'os-product-page',
@@ -12,7 +13,7 @@ import { filter } from 'rxjs/operators';
 export class ProductPageComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
-  productObs$: Observable<any>;
+  productObs$: Observable<Product>;
 
   get isAddToCartDisabled() {
     return this.productObs$.pipe(filter((product) => product.count === 0));
