@@ -1,0 +1,58 @@
+/** Based on Angular flex layout: https://github.com/angular/flex-layout/wiki/Responsive-API*/
+
+$bp-xs: '600px';
+$bp-sm: '960px';
+$bp-md: '1280px';
+$bp-lg: '1920px';
+
+$mat-xs: 'screen and (max-width: 599px)';
+$mat-sm: 'screen and (min-width: 600px) and (max-width: 959px)';
+$mat-md: 'screen and (min-width: 960px) and (max-width: 1279px)';
+$mat-lg: 'screen and (min-width: 1280px) and (max-width: 1919px)';
+$mat-xl: 'screen and (min-width: 1920px) and (max-width: 5000px)';
+$mat-lt-sm: 'screen and (max-width: 599px)';
+$mat-lt-md: 'screen and (max-width: 959px)';
+$mat-lt-lg: 'screen and (max-width: 1279px)';
+$mat-lt-xl: 'screen and (max-width: 1919px)';
+$mat-gt-xs: 'screen and (min-width: 600px)';
+$mat-gt-sm: 'screen and (min-width: 960px)';
+$mat-gt-md: 'screen and (min-width: 1280px)';
+$mat-gt-xl: 'screen and (min-width: 1920px)';
+
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == phone {
+    @media #{$mat-xs} {
+      @content;
+    }
+  }
+  @if $breakpoint == tablet-port {
+    @media #{$mat-sm} {
+      @content;
+    }
+  }
+  @if $breakpoint == lt-tablet-port {
+    @media #{$mat-lt-md} {
+      @content;
+    }
+  }
+  @if $breakpoint == tablet-land {
+    @media #{$mat-md} {
+      @content;
+    }
+  }
+  @if $breakpoint == tablet {
+    @media (min-width: $bp-xs) and (max-width: $bp-md) {
+      @content;
+    }
+  }
+  @if $breakpoint == desktop {
+    @media #{$mat-lg} {
+      @content;
+    }
+  }
+  @if $breakpoint == tv {
+    @media #{$mat-xl} {
+      @content;
+    }
+  }
+}

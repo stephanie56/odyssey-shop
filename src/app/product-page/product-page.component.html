@@ -1,11 +1,15 @@
-<div class="product-image-container"></div>
-<div class="product-info-container">
-  <div class="product-card" *ngIf="productObs$ | async as product; else loading">
-    <h1>{{ product.title }}</h1>
-    <h2>Cost (Regional Coins): {{ product.price }}</h2>
-    <h3>Kingdom: {{ product.origin }}</h3>
-    <p>{{ product.description }}</p>
+<div class="page-container">
+  <div class="product-image-container"></div>
+  <div class="product-info-container">
+    <div class="product-card" *ngIf="productObs$ | async as product; else loading">
+      <h1>{{ product.title }}</h1>
+      <h2>Regional Coins: ${{ product.price }}</h2>
+      <h2>Region: {{ product.origin }}</h2>
+      <div class="product-description">
+        <p>{{ product.description }}</p>
+      </div>
+    </div>
+    <ng-template #loading> <div class="loader-container">loading...</div> </ng-template>
+    <button class="cta-button" [disabled]="isAddToCartDisabled | async">Add to Cart</button>
   </div>
-  <ng-template #loading> <p>loading...</p> </ng-template>
-  <button class="cta-button">Add to Cart</button>
 </div>
