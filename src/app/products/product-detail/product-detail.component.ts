@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { Observable } from 'rxjs';
 import { Product } from '../../shared/models/Product';
-import { filter } from 'rxjs/operators';
+import { filter, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'os-product-detail',
@@ -20,6 +20,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productObs$ = this.apiService.getProductById('96d600ec-c2db-4dfd-a470-6dc775575e86');
+    this.productObs$ = this.apiService.getProductById('96d600ec-c2db-4dfd-a470-6dc775575e86').pipe(shareReplay(1));
   }
 }

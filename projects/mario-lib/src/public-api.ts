@@ -2,6 +2,5 @@
  * Public API Surface of mario-lib
  */
 
-export * from './lib/mario-lib.service';
-export * from './lib/mario-lib.component';
-export * from './lib/mario-lib.module';
+export * from './lib/dropdown/dropdown.component';
+export * from './lib/dropdown/dropdown.module';

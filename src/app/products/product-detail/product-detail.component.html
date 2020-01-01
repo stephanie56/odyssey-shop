@@ -8,6 +8,9 @@
       <div class="product-description">
         <p>{{ product.description }}</p>
       </div>
+      <div class="dropdown">
+        <ma-dropdown></ma-dropdown>
+      </div>
     </div>
     <ng-template #loading> <div class="loader-container">loading...</div> </ng-template>
     <button class="cta-button" [disabled]="isAddToCartDisabled | async">Add to Cart</button>
