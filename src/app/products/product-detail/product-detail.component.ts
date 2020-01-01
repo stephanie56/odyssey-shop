@@ -1,16 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
+import { ApiService } from '../../shared/services/api.service';
 import { Observable } from 'rxjs';
+import { Product } from '../../shared/models/Product';
 import { filter } from 'rxjs/operators';
-import { Product } from '../shared/models/Product';
 
 @Component({
-  selector: 'os-product-page',
-  templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.scss'],
+  selector: 'os-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductPageComponent implements OnInit {
+export class ProductDetailComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   productObs$: Observable<Product>;
