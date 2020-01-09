@@ -11,6 +11,10 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  public getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${ApiService.baseUrl}/products`);
+  }
+
   public getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(`${ApiService.baseUrl}/products/${productId}`);
   }
