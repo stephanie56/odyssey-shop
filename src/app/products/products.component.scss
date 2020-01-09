@@ -1,0 +1,16 @@
+@import 'src/stylings/color';
+@import 'src/stylings/breakpoint';
+@import 'src/stylings/space';
+
+.layout-container {
+  display: flex;
+}
+
+.card {
+  width: 14rem;
+  height: 18rem;
+  border: $ma-border-on-light solid 1px;
+  margin: $ma-space-xs;
+  cursor: pointer;
+  outline: none;
+}
