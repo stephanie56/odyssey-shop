@@ -7,12 +7,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownComponent implements OnInit {
-  selected = '0';
+  selected = '1';
 
   items = [
-    { value: '0', viewValue: '0' },
     { value: '1', viewValue: '1' },
-    { value: '2', viewValue: '2' }
+    { value: '2', viewValue: '2' },
+    { value: '3', viewValue: '3' }
   ];
 
   constructor() {}
