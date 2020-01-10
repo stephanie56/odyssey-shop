@@ -1,7 +1,10 @@
+<a [routerLink]="['/products/create']">Create a product</a>
+
 <div class="layout-container">
   <ng-container *ngFor="let product of productsObs$ | async">
     <div class="card" [routerLink]="['/products', product.id]">
       <h3>{{ product.title }}</h3>
+      <p>{{ product.count > 0 ? "in stock" : "out of stock" }}</p>
       <p style="color: red;">${{ product.price }}</p>
     </div>
   </ng-container>

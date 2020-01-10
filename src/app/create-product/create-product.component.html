@@ -1,0 +1,29 @@
+<form [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Product Title </label>
+    <input formControlName="title" />
+  </div>
+  <div>
+    <label for="price">Price </label>
+    <input formControlName="price" />
+  </div>
+  <div>
+    <label for="count">Stock </label>
+    <input formControlName="count" />
+  </div>
+  <div>
+    <label for="imgUrl">Image </label>
+    <input formControlName="imgUrl" />
+  </div>
+  <div>
+    <label for="origin">Kingdom </label>
+    <input formControlName="origin" />
+  </div>
+  <div>
+    <label for="description">Product Description </label>
+    <textarea row="2" formControlName="description"></textarea>
+  </div>
+  <button type="submit">Create a Product</button>
+</form>
+
+<div>{{ createProductStatus$ | async }}</div>
