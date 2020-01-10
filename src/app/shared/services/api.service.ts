@@ -18,4 +18,8 @@ export class ApiService {
   public getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(`${ApiService.baseUrl}/products/${productId}`);
   }
+
+  public createProduct(body: Product): Observable<Product> {
+    return this.http.post<Product>(`${ApiService.baseUrl}/products`, body);
+  }
 }
