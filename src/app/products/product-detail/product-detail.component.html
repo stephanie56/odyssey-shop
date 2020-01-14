@@ -1,7 +1,9 @@
-<div class="page-container">
-  <div class="product-image-container"></div>
+<div class="page-container" *ngIf="productObs$ | async as product; else loading">
+  <div class="product-image-container">
+    <img [src]="product.imgUrl" [alt]="product.title" />
+  </div>
   <div class="product-info-container">
-    <div class="product-card" *ngIf="productObs$ | async as product; else loading">
+    <div class="product-card">
       <h1>{{ product.title }}</h1>
       <h2>Regional Coins: ${{ product.price }}</h2>
       <h2>Region: {{ product.origin }}</h2>

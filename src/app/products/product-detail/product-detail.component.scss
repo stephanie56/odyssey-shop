@@ -35,7 +35,10 @@ h2 {
 .product-image-container {
   width: 500px;
   height: 500px;
-  background-color: $ma-background-color-light-dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
   margin-right: $ma-space-lg;
 
   @include breakpoint(tablet-land) {
