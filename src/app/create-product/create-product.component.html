@@ -13,7 +13,8 @@
   </div>
   <div>
     <label for="imgUrl">Image </label>
-    <input formControlName="imgUrl" />
+    <input type="file" (change)="onSelectImage($event)" />
+    <button type="button" (click)="onUploadImage()">Upload Image</button>
   </div>
   <div>
     <label for="origin">Kingdom </label>

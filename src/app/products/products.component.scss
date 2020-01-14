@@ -6,11 +6,20 @@
   display: flex;
 }
 
+img {
+  width: 180px;
+}
+
 .card {
   width: 14rem;
   height: 18rem;
   border: $ma-border-on-light solid 1px;
   margin: $ma-space-xs;
+  text-align: center;
   cursor: pointer;
   outline: none;
+
+  h3 {
+    margin: 1rem 0;
+  }
 }
