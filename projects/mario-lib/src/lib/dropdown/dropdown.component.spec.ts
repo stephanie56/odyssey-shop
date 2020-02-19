@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownComponent } from './dropdown.component';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DropdownComponent', () => {
