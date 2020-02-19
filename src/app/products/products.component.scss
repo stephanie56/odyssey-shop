@@ -10,9 +10,13 @@ img {
   width: 180px;
 }
 
+button {
+  margin: 2rem 1rem;
+}
+
 .card {
-  width: 14rem;
-  height: 18rem;
+  width: 15rem;
+  height: 20rem;
   border: $ma-border-on-light solid 1px;
   margin: $ma-space-xs;
   text-align: center;
@@ -22,4 +26,17 @@ img {
   h3 {
     margin: 1rem 0;
   }
+
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: dotted 1px $ma-border-on-light;
+  }
+}
+
+.product-count {
+  font-weight: 700;
+  margin: 0.5rem 0;
+  text-transform: capitalize;
 }

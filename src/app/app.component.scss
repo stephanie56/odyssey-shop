@@ -1,6 +1,7 @@
 @import 'src/stylings/breakpoint';
 
 .app-container {
+  margin-top: 2rem;
   @include breakpoint(tv) {
     max-width: $bp-lg;
   }
