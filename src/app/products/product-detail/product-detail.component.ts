@@ -16,6 +16,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {}
 
   productObs$: Observable<Product>;
+  loading: Observable<HTMLElement>;
   productId$: Observable<string> = this.route.params.pipe(
     map((p) => p.id),
     shareReplay(1)
