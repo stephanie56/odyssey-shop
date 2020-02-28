@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ApiService } from '../../shared/services/api.service';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product } from '../../shared/models/Product';
-import { filter, shareReplay, map, switchMap, catchError } from 'rxjs/operators';
+import { filter, shareReplay, map, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'os-product-detail',
@@ -13,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDetailComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private apiService: ProductsService) {}
 
   productObs$: Observable<Product>;
   loading: Observable<HTMLElement>;

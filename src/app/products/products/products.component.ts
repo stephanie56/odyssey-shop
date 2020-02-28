@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
 import { Observable } from 'rxjs';
-import { Product } from '../shared/models/Product';
-import { filter, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
+import { Product } from 'src/app/shared/models/Product';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'os-products',
@@ -11,7 +11,7 @@ import { filter, shareReplay } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ProductsService) {}
 
   productsObs$: Observable<Product[]>;
 

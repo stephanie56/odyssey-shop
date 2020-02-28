@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../shared/services/api.service';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.dev';
+import { CreateProductService } from './services/create-product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'os-create-product',
@@ -25,7 +25,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   selectedImage = null;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: CreateProductService) {}
 
   ngOnInit() {}
 

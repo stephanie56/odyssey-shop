@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ApiService } from '../services/api.service';
-
 import { Observable, of } from 'rxjs';
 
 import { map, catchError } from 'rxjs/operators';
 
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { ProductsService } from '../services/products.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PageGuard implements CanActivate {
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ProductsService) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params.id;

@@ -53,6 +53,9 @@ h2 {
     margin-bottom: $ma-space-sm;
     width: 100%;
     height: 300px;
+    img {
+      max-height: 300px;
+    }
   }
 }
 
