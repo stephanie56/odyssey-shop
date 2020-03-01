@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'products/create',
     loadChildren: () => import('./create-product/create-product.module').then((m) => m.CreateProductModule)
   },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule)
+  },
   { path: '', redirectTo: '/products', pathMatch: 'full' }
   // { path: '**', component: PageNotFoundComponent }
 ];
