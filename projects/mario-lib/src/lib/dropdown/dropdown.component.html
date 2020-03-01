@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>Quantity</mat-label>
-  <mat-select [(value)]="selected">
+  <mat-select [(value)]="selected" (selectionChange)="onSelectQuantity($event)">
     <mat-option *ngFor="let item of items" [value]="item.value">
       {{item.viewValue}}
     </mat-option>

@@ -1,0 +1,53 @@
+@import 'src/stylings/color';
+
+:host {
+  display: block;
+  padding: 2.5rem;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 2rem;
+  margin-right: 4rem;
+
+  img {
+    width: 100px;
+    margin-right: 1rem;
+  }
+}
+
+.cdk-header-cell {
+  padding: 1rem 0;
+  border-bottom: 1px solid $ma-border-on-light;
+}
+
+.cdk-row {
+  border-bottom: 1px solid $ma-border-on-light;
+}
+
+.cdk-cell {
+  padding: 0.5rem 0;
+}
+
+.cdk-column-product {
+  text-align: left;
+  display: flex;
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    a {
+      color: $ma-background-color-dark;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0.8rem 0;
+    }
+  }
+}
+
+.cdk-column-quantity,
+.cdk-column-total {
+  text-align: center;
+}

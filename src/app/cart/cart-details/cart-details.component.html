@@ -1,0 +1,45 @@
+<h1 class="mb4">My Shopping Cart</h1>
+
+<div *ngIf="isEmptyCart$ | async; else cart">
+  <p class="mb4">You have no items in your shopping bag.</p>
+  <button mat-flat-button color="primary" [routerLink]="['/products']">Continue Shopping</button>
+</div>
+
+<ng-template #cart>
+  <main class="flex">
+    <table cdk-table [dataSource]="dataSource" style="flex: 3;">
+      <!-- Product Column -->
+      <ng-container cdkColumnDef="product">
+        <th cdk-header-cell *cdkHeaderCellDef>Product</th>
+        <td cdk-cell *cdkCellDef="let item">
+          <img [src]="item.product.imgUrl" [alt]="item.product.title" />
+          <div class="product-info">
+            <h3>{{ item.product.title }}</h3>
+            <p>Price: ${{ item.product.price }}</p>
+            <a (click)="removeCartItem(item.product.id, item.quantity)">Remove Item</a>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container cdkColumnDef="quantity">
+        <th cdk-header-cell *cdkHeaderCellDef>Quantity</th>
+        <td cdk-cell *cdkCellDef="let item">{{ item.quantity }}</td>
+      </ng-container>
+
+      <!-- Total Column -->
+      <ng-container cdkColumnDef="total">
+        <th cdk-header-cell *cdkHeaderCellDef>Total Price</th>
+        <td cdk-cell *cdkCellDef="let item">${{ item.total }}</td>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div style="flex: 1;">
+      <h3 class="mb4">Subtotal: ${{ cartTotal$ | async }}</h3>
+      <button mat-flat-button color="warn" class="w-100">Checkout</button>
+    </div>
+  </main>
+</ng-template>
