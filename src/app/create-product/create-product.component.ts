@@ -1,15 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, map } from 'rxjs/operators';
 import { CreateProductService } from './services/create-product.service';
-import { environment } from 'src/environments/environment';
+import { UPLOAD_IMAGE_BASE_URL } from '../shared/services/api/api-urls';
 
 @Component({
   selector: 'os-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateProductComponent implements OnInit, OnDestroy {
   createProductStatus$ = new BehaviorSubject('');
@@ -20,7 +20,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     count: ['', Validators.required],
     imgUrl: ['', Validators.required],
     price: ['', Validators.required],
-    origin: ['', Validators.required]
+    origin: ['', Validators.required],
   });
 
   selectedImage = null;
@@ -38,17 +38,30 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   onUploadImage() {
-    const formData = new FormData();
-    formData.append('file', this.selectedImage);
-    formData.append('upload_preset', environment.CLOUDINARY_CONFIG.PRESET);
-    this.apiService.uploadImage(formData).subscribe((res) => {
-      if (!!res.url) {
-        this.createProductForm.get('imgUrl').setValue(res.url);
-      }
-    });
+    this.apiService
+      .getImageUploadConfig()
+      .pipe(
+        map((res) => {
+          const { user, preset } = res;
+          const imageUploadUrl = `${UPLOAD_IMAGE_BASE_URL}/${user}/image/upload`;
+          let formData = new FormData();
+          formData.append('file', this.selectedImage);
+          formData.append('upload_preset', preset);
+          return [imageUploadUrl, formData];
+        }),
+        switchMap(([imageUploadUrl, formData]) => {
+          return this.apiService.uploadImage(imageUploadUrl, formData);
+        })
+      )
+      .subscribe((res) => {
+        if (!!res.url) {
+          this.createProductForm.get('imgUrl').setValue(res.url);
+        }
+      });
   }
 
   onSubmit() {
+    /** TODO: Informs user when the image is not uploaded  */
     const payload = this.formToRequestTransformer(this.createProductForm.value);
     this.apiService
       .createProduct(payload)
@@ -75,7 +88,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       imgUrl,
       origin,
       count: parseInt(count, 10),
-      price: Number(parseFloat(price).toFixed(2))
+      price: Number(parseFloat(price).toFixed(2)),
     };
   }
 }
