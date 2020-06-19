@@ -39,7 +39,7 @@
 
     <div style="flex: 1;">
       <h3 class="mb4">Subtotal: ${{ cartTotal$ | async }}</h3>
-      <button mat-flat-button color="warn" class="w-100">Checkout</button>
+      <button [routerLink]="['/checkout']" mat-flat-button color="warn" class="w-100">Checkout</button>
     </div>
   </main>
 </ng-template>

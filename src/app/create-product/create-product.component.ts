@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { tap, switchMap, map } from 'rxjs/operators';
+import { tap, switchMap, map, finalize } from 'rxjs/operators';
 import { CreateProductService } from './services/create-product.service';
 import { UPLOAD_IMAGE_BASE_URL } from '../shared/services/api/api-urls';
 
@@ -13,6 +13,8 @@ import { UPLOAD_IMAGE_BASE_URL } from '../shared/services/api/api-urls';
 })
 export class CreateProductComponent implements OnInit, OnDestroy {
   createProductStatus$ = new BehaviorSubject('');
+  isImageLoading$ = new BehaviorSubject(false);
+  isImageUploaded$ = new BehaviorSubject(false);
 
   createProductForm = this.fb.group({
     title: ['', Validators.required],
@@ -31,6 +33,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.createProductStatus$.unsubscribe();
+    this.isImageLoading$.unsubscribe();
+    this.isImageUploaded$.unsubscribe();
   }
 
   onSelectImage(event) {
@@ -41,6 +45,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.apiService
       .getImageUploadConfig()
       .pipe(
+        tap((_) => this.isImageLoading$.next(true)),
         map((res) => {
           const { user, preset } = res;
           const imageUploadUrl = `${UPLOAD_IMAGE_BASE_URL}/${user}/image/upload`;
@@ -51,11 +56,13 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         }),
         switchMap(([imageUploadUrl, formData]) => {
           return this.apiService.uploadImage(imageUploadUrl, formData);
-        })
+        }),
+        finalize(() => this.isImageLoading$.next(false))
       )
       .subscribe((res) => {
         if (!!res.url) {
           this.createProductForm.get('imgUrl').setValue(res.url);
+          this.isImageUploaded$.next(true);
         }
       });
   }

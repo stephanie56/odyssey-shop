@@ -14,7 +14,17 @@
   <div class="form-field image-uploader">
     <label>Image </label>
     <input type="file" (change)="onSelectImage($event)" />
-    <button type="button" (click)="onUploadImage()" mat-flat-button color="primary">Upload Image</button>
+    <button
+      [disabled]="isImageLoading$ | async"
+      type="button"
+      (click)="onUploadImage()"
+      mat-flat-button
+      color="primary"
+    >
+      Upload Image
+    </button>
+    <div *ngIf="isImageLoading$ | async">Loading Image...</div>
+    <div *ngIf="isImageUploaded$ | async">Uploaded Image successfully.</div>
   </div>
   <div class="form-field">
     <label for="origin">Origin </label>
