@@ -3,13 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { CheckoutRoutingModule } from './checkout-routing.module';
 import { CheckoutComponent } from './checkout.component';
-
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [CheckoutComponent],
-  imports: [
-    CommonModule,
-    CheckoutRoutingModule
-  ]
+  imports: [CommonModule, MatButtonModule, CheckoutRoutingModule],
 })
-export class CheckoutModule { }
+export class CheckoutModule {}

@@ -1,5 +1,5 @@
 <form class="checkout-form" (submit)="submitOrder($event)">
-  <div>
+  <div class="card-wrapper">
     <div id="card-element" #cardElement>
       <!-- A Stripe Element will be inserted here. -->
     </div>
@@ -8,9 +8,9 @@
     <p class="has-text-danger">{{ cardErrors }}</p>
   </div>
 
-  <hr />
+  <button mat-flat-button color="primary">Purchase for ${{cartTotal$ | async}}</button>
 
-  <button>Buy for 35.00</button>
+  <div *ngIf="successMessage$| async" class="success-message">{{ successMessage$| async }}</div>
 </form>
 
 <!-- <div *ngIf="loading" class="notification is-info">Loading....</div>
