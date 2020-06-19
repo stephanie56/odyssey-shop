@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PAYMENT_BASE_URL } from 'src/app/shared/services/api/api-urls';
 
-interface PaymentIntent {
+export interface PaymentIntent {
   clientSecret: string;
   paymentIntentId: string;
 }
