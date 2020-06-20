@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { tap, switchMap, map, finalize } from 'rxjs/operators';
-import { CreateProductService } from './services/create-product.service';
+import { ProductAdminService } from './services/product-admin.service';
 import { UPLOAD_IMAGE_BASE_URL } from '../shared/services/api/api-urls';
 
 @Component({
@@ -27,7 +27,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   selectedImage = null;
 
-  constructor(private fb: FormBuilder, private apiService: CreateProductService) {}
+  constructor(private fb: FormBuilder, private productAdminService: ProductAdminService) {}
 
   ngOnInit() {}
 
@@ -42,7 +42,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   onUploadImage() {
-    this.apiService
+    this.productAdminService
       .getImageUploadConfig()
       .pipe(
         tap((_) => this.isImageLoading$.next(true)),
@@ -55,7 +55,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
           return [imageUploadUrl, formData];
         }),
         switchMap(([imageUploadUrl, formData]) => {
-          return this.apiService.uploadImage(imageUploadUrl, formData);
+          return this.productAdminService.uploadImage(imageUploadUrl, formData);
         }),
         finalize(() => this.isImageLoading$.next(false))
       )
@@ -70,7 +70,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   onSubmit() {
     /** TODO: Informs user when the image is not uploaded  */
     const payload = this.formToRequestTransformer(this.createProductForm.value);
-    this.apiService
+    this.productAdminService
       .createProduct(payload)
       .pipe(
         tap((_) => {

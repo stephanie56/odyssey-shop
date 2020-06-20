@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { PaymentService, PaymentIntent } from '../create-product/services/payment.service';
+import { PaymentService, PaymentIntent } from '../shared/services/payment.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { CartState } from '../cart/store/cart.reducer';
 import { selectCartTotalPrice, selectCartItems } from '../cart/store/cart.selectors';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, tap, take } from 'rxjs/operators';
 import { CartItem } from '../shared/models/CartItem';
+import { clearCart } from '../cart/store/cart.actions';
 
 declare let Stripe; // : stripe.StripeStatic;
 
@@ -50,6 +51,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
     event.preventDefault();
     this.cartItems$
       .pipe(
+        take(1), // should not trigger api calls after the cart state is updated
         map((cartItems: CartItem[]) => {
           return cartItems.map((item) => ({
             productId: item.product.id,
@@ -74,6 +76,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res) => {
         this.successMessage$.next('Payment Successful!');
+        this.store.dispatch(clearCart());
       });
   }
 }

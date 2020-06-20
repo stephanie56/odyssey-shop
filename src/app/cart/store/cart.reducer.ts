@@ -11,7 +11,7 @@ export interface CartState {
 
 export const initialState: CartState = {
   cartItems: [],
-  numberOfItems: 0
+  numberOfItems: 0,
 };
 
 const cartReducer = createReducer(
@@ -24,7 +24,7 @@ const cartReducer = createReducer(
       return {
         ...state,
         numberOfItems: state.numberOfItems + item.quantity,
-        cartItems: state.cartItems.concat(item)
+        cartItems: state.cartItems.concat(item),
       };
     }
 
@@ -33,7 +33,7 @@ const cartReducer = createReducer(
         const updatedItem = {
           ...currCartItem,
           quantity: item.quantity + currCartItem.quantity,
-          total: item.total + currCartItem.total
+          total: item.total + currCartItem.total,
         };
         return accu.concat(updatedItem);
       } else {
@@ -44,14 +44,18 @@ const cartReducer = createReducer(
     return {
       ...state,
       numberOfItems: state.numberOfItems + item.quantity,
-      cartItems: updatedCartItems
+      cartItems: updatedCartItems,
     };
   }),
 
   on(CartActions.removeFromCart, (state, { id, quantity }) => ({
     ...state,
     numberOfItems: state.numberOfItems - quantity,
-    cartItems: state.cartItems.filter((item) => item.product.id !== id)
+    cartItems: state.cartItems.filter((item) => item.product.id !== id),
+  })),
+
+  on(CartActions.clearCart, (state) => ({
+    ...initialState,
   }))
 );
 

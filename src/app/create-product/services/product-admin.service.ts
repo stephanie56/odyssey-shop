@@ -7,7 +7,7 @@ import { GET_PRODUCTS_URL, GET_IMAGE_UPLOAD_CONFIG } from 'src/app/shared/servic
 @Injectable({
   providedIn: 'root',
 })
-export class CreateProductService {
+export class ProductAdminService {
   constructor(private http: HttpClient) {}
 
   public getImageUploadConfig(): Observable<any> {
@@ -22,5 +22,9 @@ export class CreateProductService {
     return this.http.post(url, body, {
       observe: 'body',
     });
+  }
+
+  public removeProduct(productId: string): Observable<any> {
+    return this.http.delete(`${GET_PRODUCTS_URL}/${productId}`);
   }
 }
