@@ -4,7 +4,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { CartState } from '../cart/store/cart.reducer';
 import { selectCartTotalPrice, selectCartItems } from '../cart/store/cart.selectors';
-import { switchMap, map, combineLatest } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
+import { CartItem } from '../shared/models/CartItem';
+
 declare let Stripe; // : stripe.StripeStatic;
 
 @Component({
@@ -46,12 +48,18 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
 
   submitOrder(event) {
     event.preventDefault();
-    this.cartTotal$
+    this.cartItems$
       .pipe(
+        map((cartItems: CartItem[]) => {
+          return cartItems.map((item) => ({
+            productId: item.product.id,
+            quantity: item.quantity,
+          }));
+        }),
         switchMap(
-          (cartTotal): Observable<PaymentIntent> => {
+          (items): Observable<PaymentIntent> => {
             return this.paymentService.createPaymentIntent({
-              cartTotal,
+              items,
             });
           }
         ),
@@ -65,7 +73,6 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
         )
       )
       .subscribe((res) => {
-        console.log(res);
         this.successMessage$.next('Payment Successful!');
       });
   }
