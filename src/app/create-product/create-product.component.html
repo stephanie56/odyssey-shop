@@ -12,9 +12,8 @@
     <input formControlName="count" />
   </div>
   <div class="form-field">
-    <label for="count">Category </label>
     <mat-form-field>
-      <mat-label>Choose a category</mat-label>
+      <mat-label>Category</mat-label>
       <mat-select formControlName="categoryId">
         <mat-option *ngFor="let category of categoryObs$ | async" [value]="category.id">{{ category.name }}</mat-option>
       </mat-select>
