@@ -18,6 +18,26 @@ h2 {
   margin: $ma-space-sm 0;
 }
 
+.page-nav {
+  margin: $ma-space-sm $ma-space-lg;
+  text-transform: capitalize;
+  @include breakpoint(lt-tablet-port) {
+    max-width: 500px;
+    margin: $ma-space-sm auto;
+  }
+  @include breakpoint(phone) {
+    margin: $ma-space-sm;
+  }
+
+  a {
+    color: $ma-color-black;
+
+    &.home-link {
+      text-decoration: none;
+    }
+  }
+}
+
 .page-container {
   display: flex;
   justify-content: center;

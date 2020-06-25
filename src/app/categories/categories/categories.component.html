@@ -1,0 +1,15 @@
+<div *ngIf="categoryObs$ | async as category">
+  <h2 class="page-title">{{ category.name }}'s Collections</h2>
+  <div class="layout-container">
+    <div class="card-wrapper" *ngFor="let product of category.products">
+      <div class="card" [routerLink]="['/products', product.id]">
+        <h3>{{ product.title }}</h3>
+        <img [src]="product.imgUrl" [alt]="product.title" />
+        <p class="product-count">
+          {{ product.count > 0 ? "in stock" : "out of stock" }}
+        </p>
+        <p>${{ product.price }}</p>
+      </div>
+    </div>
+  </div>
+</div>

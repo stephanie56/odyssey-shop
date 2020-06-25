@@ -1,9 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-import { tap, switchMap, map, finalize } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, switchMap, map, finalize, shareReplay } from 'rxjs/operators';
 import { ProductAdminService } from './services/product-admin.service';
 import { UPLOAD_IMAGE_BASE_URL } from '../shared/services/api/api-urls';
+import { Category } from '../shared/models/Category';
+import { CategoryService } from '../shared/services/category.service';
 
 @Component({
   selector: 'os-create-product',
@@ -23,13 +25,21 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     imgUrl: ['', Validators.required],
     price: ['', Validators.required],
     origin: ['', Validators.required],
+    categoryId: ['', Validators.required],
   });
 
   selectedImage = null;
+  categoryObs$: Observable<Category[]>;
 
-  constructor(private fb: FormBuilder, private productAdminService: ProductAdminService) {}
+  constructor(
+    private fb: FormBuilder,
+    private productAdminService: ProductAdminService,
+    private categoryService: CategoryService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categoryObs$ = this.categoryService.getCategories().pipe(shareReplay(1));
+  }
 
   ngOnDestroy() {
     this.createProductStatus$.unsubscribe();
@@ -68,7 +78,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    /** TODO: Informs user when the image is not uploaded  */
     const payload = this.formToRequestTransformer(this.createProductForm.value);
     this.productAdminService
       .createProduct(payload)
@@ -88,7 +97,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       );
   }
 
-  private formToRequestTransformer({ title, description, count, imgUrl, price, origin }) {
+  private formToRequestTransformer({ title, description, count, imgUrl, price, origin, categoryId }) {
     return {
       title,
       description,
@@ -96,6 +105,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       origin,
       count: parseInt(count, 10),
       price: Number(parseFloat(price).toFixed(2)),
+      categoryId,
     };
   }
 }
