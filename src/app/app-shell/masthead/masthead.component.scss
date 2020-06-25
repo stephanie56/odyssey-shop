@@ -1,4 +1,26 @@
+@import 'src/stylings/color';
+@import 'src/stylings/breakpoint';
+@import 'src/stylings/space';
+
 a {
   color: white;
   text-decoration: none;
+}
+
+.category-item {
+  margin: 0 2rem;
+  & > a {
+    padding: 0 2rem;
+    text-transform: uppercase;
+    border-left: white solid 2px;
+
+    &.all-products {
+      border: 0;
+      border-color: transparent;
+    }
+  }
+
+  @include breakpoint(lt-tablet-port) {
+    display: none;
+  }
 }

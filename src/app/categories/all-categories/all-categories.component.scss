@@ -1,0 +1,64 @@
+@import 'src/stylings/color';
+@import 'src/stylings/breakpoint';
+@import 'src/stylings/space';
+
+.page-title {
+  margin: $ma-space-md;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.layout-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  width: 180px;
+}
+
+button {
+  margin: 2rem 1rem;
+}
+
+.card {
+  width: 15rem;
+  height: 20rem;
+  border: $ma-border-on-light solid 1px;
+  margin: $ma-space-xs;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+
+  h3 {
+    margin: 1rem 0;
+  }
+
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: dotted 1px $ma-border-on-light;
+  }
+}
+
+.product-count {
+  font-weight: 700;
+  margin: 0.5rem 0;
+  text-transform: capitalize;
+}
+
+.breaker {
+  background: $ma-border-on-light;
+  height: 2px;
+  border: 0;
+  width: 90%;
+  margin: $ma-space-sm auto 0;
+}

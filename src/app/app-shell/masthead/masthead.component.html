@@ -1,6 +1,12 @@
 <mat-toolbar color="warn">
   <mat-toolbar-row>
     <h1><a [routerLink]="['/products']">{{ title }}</a></h1>
+    <div class="category-item">
+      <a class="all-products" [routerLink]="['/categories']">All</a>
+      <a *ngFor="let category of categoryObs$ | async" [routerLink]="['/categories', category.id]"
+        >{{ category.name}}</a
+      >
+    </div>
     <span class="flex-auto"></span>
     <os-mini-cart></os-mini-cart>
   </mat-toolbar-row>
