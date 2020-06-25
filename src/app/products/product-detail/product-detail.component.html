@@ -1,22 +1,28 @@
-<div class="page-container" *ngIf="productObs$ | async as product; else loading">
-  <div class="product-image-container">
-    <img [src]="product.imgUrl" [alt]="product.title" />
+<div *ngIf="productObs$ | async as product; else loading">
+  <div class="page-nav" *ngIf="product.category">
+    <a class="home-link" [routerLink]="['/products']">Home</a> /
+    <a [routerLink]="['/categories', product.category?.id]">{{product.category?.name}}</a>
   </div>
-  <div class="product-info-container">
-    <div class="product-card">
-      <h1>{{ product.title }}</h1>
-      <h2>Regional Coins: ${{ product.price }}</h2>
-      <h2>Region: {{ product.origin }}</h2>
-      <div class="product-description">
-        <p>{{ product.description }}</p>
-      </div>
-      <div class="dropdown">
-        <ma-dropdown (selectedQuantity)="onSelectQuantity($event)"></ma-dropdown>
-      </div>
+  <div class="page-container">
+    <div class="product-image-container">
+      <img [src]="product.imgUrl" [alt]="product.title" />
     </div>
-    <ng-template #loading> <div class="loader-container">loading...</div> </ng-template>
-    <button class="cta-button" [disabled]="isAddToCartDisabled | async" (click)="addToCart(product, quantity)">
-      Add to Cart
-    </button>
+    <div class="product-info-container">
+      <div class="product-card">
+        <h1>{{ product.title }}</h1>
+        <h2>Regional Coins: ${{ product.price }}</h2>
+        <h2>Region: {{ product.origin }} Kingdom</h2>
+        <div class="product-description">
+          <p>{{ product.description }}</p>
+        </div>
+        <div class="dropdown">
+          <ma-dropdown (selectedQuantity)="onSelectQuantity($event)"></ma-dropdown>
+        </div>
+      </div>
+      <ng-template #loading> <div class="loader-container">loading...</div> </ng-template>
+      <button class="cta-button" [disabled]="isAddToCartDisabled | async" (click)="addToCart(product, quantity)">
+        Add to Cart
+      </button>
+    </div>
   </div>
 </div>
