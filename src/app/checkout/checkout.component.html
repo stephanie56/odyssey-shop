@@ -5,15 +5,12 @@
     </div>
 
     <!-- Used to display Element errors. -->
-    <p class="error-message">{{ cardErrors }}</p>
+    <p class="error-message">{{ cardErrors$ | async }}</p>
   </div>
 
-  <button mat-flat-button color="primary">Purchase for ${{cartTotal$ | async}}</button>
+  <button mat-flat-button color="primary" [disabled]="!(isCardComplete$ | async)">
+    Purchase for ${{cartTotal$ | async}}
+  </button>
 
   <div *ngIf="successMessage$| async" class="success-message">{{ successMessage$| async }}</div>
 </form>
-
-<!-- <div *ngIf="loading" class="notification is-info">Loading....</div>
-<pre *ngIf="confirmation" style="max-width: 500px;">
-  {{ confirmation | json }}
-</pre> -->

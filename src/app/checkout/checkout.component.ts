@@ -21,13 +21,13 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
   cartTotal$: Observable<number>;
   cartItems$: Observable<any>;
   successMessage$ = new BehaviorSubject('');
+  isCardComplete$ = new BehaviorSubject(false);
+  cardErrors$ = new BehaviorSubject('');
 
   stripe;
   card;
-  cardErrors;
 
   loading = false;
-  confirmation;
 
   constructor(private paymentService: PaymentService, private store: Store<CartState>) {
     this.cartTotal$ = this.store.select(selectCartTotalPrice);
@@ -42,8 +42,16 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.card.mount(this.cardElement.nativeElement);
-    this.card.addEventListener('change', ({ error }) => {
-      this.cardErrors = error && error.message;
+    this.card.addEventListener('change', (event) => {
+      const { error, elementType, complete } = event;
+      if (elementType === 'card' && complete) {
+        this.isCardComplete$.next(true);
+      }
+      if (error && error.message) {
+        this.cardErrors$.next(error.message);
+      } else {
+        this.cardErrors$.next('');
+      }
     });
   }
 
