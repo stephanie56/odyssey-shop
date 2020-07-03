@@ -13,6 +13,7 @@ const routes: Routes = [
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
   },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then((m) => m.CheckoutModule) },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   // { path: '**', component: PageNotFoundComponent }
 ];

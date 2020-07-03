@@ -1,0 +1,13 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input formControlName="email" />
+  </div>
+  <div class="form-field">
+    <label for="password">Password</label>
+    <input formControlName="password" />
+  </div>
+  <button type="submit" mat-flat-button color="warn">Sign In</button>
+</form>
+
+<div>{{ loginStatusMessage$ | async }}</div>

@@ -15,6 +15,10 @@ import { AppEffects } from './app.effects';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { environment } from 'src/environments/environment';
 
+import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,20 +28,36 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AppShellModule,
     ProductsModule,
+    ApolloModule,
+    HttpLinkModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
-      logOnly: environment.production // Restrict extension to log-only mode
+      logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://localhost:4000/graphql',
+            withCredentials: true,
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
