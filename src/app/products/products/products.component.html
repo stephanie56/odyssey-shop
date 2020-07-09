@@ -8,7 +8,9 @@
       </p>
       <p>${{ product.price }}</p>
     </div>
-    <a class="delete-link" (click)="removeProduct(product.id)">Delete Product</a>
+    <a *ngIf="isAuthorizedUser$ | async" class="delete-link" (click)="removeProduct(product.id)">Delete Product</a>
   </div>
 </div>
-<button mat-flat-button color="primary" [routerLink]="['/products/create']">Add a Product</button>
+<button *ngIf="isAuthorizedUser$ | async" mat-flat-button color="primary" [routerLink]="['/products/create']">
+  Add a Product
+</button>

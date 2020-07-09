@@ -10,3 +10,5 @@ export const PAYMENT_BASE_URL = `${API_BASE_URL}/payment/create-payment-intent`;
 
 /** Base Urls for external requests */
 export const UPLOAD_IMAGE_BASE_URL = `https://api.cloudinary.com/v1_1`;
+
+export const REFRESH_TOKEN_URL = 'http://localhost:4001/refresh-token';

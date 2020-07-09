@@ -13,3 +13,8 @@ export const selectUserName = createSelector(selectCartState, (state: AuthState)
 export const selectUserEmail = createSelector(selectCartState, (state: AuthState) => state.email);
 
 export const selectUserRole = createSelector(selectCartState, (state: AuthState) => state.role);
+
+export const selectIsAuthorizedUser = createSelector(
+  selectCartState,
+  (state: AuthState) => state.role === fromAuth.UserRole.ADMIN || state.role === fromAuth.UserRole.MANAGER
+);

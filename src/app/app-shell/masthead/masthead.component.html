@@ -8,6 +8,8 @@
       >
     </div>
     <span class="flex-auto"></span>
+    <a *ngIf="!(userName$ | async)" [routerLink]="['/auth/login']" class="username">Login</a>
+    <span *ngIf="userName$ | async" class="username">Hello {{userName$ | async}}!</span>
     <os-mini-cart></os-mini-cart>
   </mat-toolbar-row>
 </mat-toolbar>
